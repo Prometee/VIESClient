@@ -14,9 +14,7 @@ use Prometee\VatInformationExchangeSystem\Soap\Model\CheckVatResponse;
 
 class ViesSoapClientTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function checkVatResponse()
     {
         $vat = ['FR', '12345678987'];
@@ -29,7 +27,8 @@ class ViesSoapClientTest extends TestCase
         $checkVatResponseMock = new CheckVatResponse();
         $checkVatResponseMock->setCountryCode($vat[0]);
         $checkVatResponseMock->setVatNumber($vat[1]);
-        $checkVatResponseMock->setRequestDatetime(new DateTime());
+        $date = new Datetime();
+        $checkVatResponseMock->setRequestDate($date->format('Y-m-d+01:00'));
         $checkVatResponseMock->setValid(false);
         $checkVatResponseMock->setName('---');
         $checkVatResponseMock->setAddress('---');
@@ -37,10 +36,8 @@ class ViesSoapClientTest extends TestCase
         $this->assertEquals($checkVatResponseMock, $checkVatResponse);
     }
 
-    /**
-     * @test
-     */
-    public function testCheckVatApprox()
+    /** @test */
+    public function checkVatApprox()
     {
         $vat = ['FR', '12345678987'];
         $checkVatApproxRequest = new CheckVatApproxRequest();
@@ -52,7 +49,8 @@ class ViesSoapClientTest extends TestCase
         $checkVatApproxResponseMock = new CheckVatApproxResponse();
         $checkVatApproxResponseMock->setCountryCode($vat[0]);
         $checkVatApproxResponseMock->setVatNumber($vat[1]);
-        $checkVatApproxResponseMock->setRequestDatetime(new DateTime());
+        $date = new Datetime();
+        $checkVatApproxResponseMock->setRequestDate($date->format('Y-m-d+01:00'));
         $checkVatApproxResponseMock->setValid(false);
         $checkVatApproxResponseMock->setTraderName('---');
         $checkVatApproxResponseMock->setTraderCompanyType('---');

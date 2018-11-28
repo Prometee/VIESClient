@@ -14,6 +14,6 @@ class CompanyTypeCodeUtil
      */
     public static function check(string $companyTypeCode): bool
     {
-        return preg_match(static::REGEX_PATTERN, $companyTypeCode) === 1;
+        return preg_match(static::REGEX_PATTERN, $companyTypeCode) === 1 || $companyTypeCode == '---';
     }
 }

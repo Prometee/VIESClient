@@ -1,0 +1,25 @@
+{
+    "name": "prometee/european-vat-information-exchange-system",
+    "description": "European VAT Information Exchange System SOAP client",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Francis HILAIRE",
+            "email": "prometee@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "ext-soap": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Prometee\\VatInformationExchangeSystem\\": "src/",
+            "Tests\\Prometee\\VatInformationExchangeSystem\\": "tests/"
+        }
+    }
+}

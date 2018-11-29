@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Prometee/EuropeanVatInformationExchangeSystem.svg?branch=master)](https://travis-ci.org/Prometee/EuropeanVatInformationExchangeSystem)
+[![Build Status](https://travis-ci.org/Prometee/VIESClient.svg?branch=master)](https://travis-ci.org/Prometee/VIESClient)
 
 ## European VAT Information Exchange System SOAP client
 

@@ -35,7 +35,7 @@ class ViesHelperTest extends TestCase
 
         $status = $helper->isValid('FR12345678987');
 
-        $expectedStatus = ViesHelper::CHECK_STATUS_FORMAT;
+        $expectedStatus = ViesHelper::CHECK_STATUS_VALID_FORMAT;
 
         $this->assertEquals($expectedStatus, $status);
     }

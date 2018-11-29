@@ -37,7 +37,7 @@ class ViesHelper implements ViesHelperInterface
         $status = static::CHECK_STATUS_INVALID;
 
         if (VatNumberUtil::check($fullVatNumber)) {
-            $status = static::CHECK_STATUS_FORMAT;
+            $status = static::CHECK_STATUS_VALID_FORMAT;
         }
 
         $checkVatRequest = new CheckVatRequest();
@@ -47,12 +47,12 @@ class ViesHelper implements ViesHelperInterface
             try {
                 $response = $this->getSoapClient()->checkVat($checkVatRequest);
                 if ($response->isValid()) {
-                    $status = $status === static::CHECK_STATUS_INVALID ? static::CHECK_STATUS_WEBSERVICE : static::CHECK_STATUS_VALID;
+                    $status = $status === static::CHECK_STATUS_INVALID ? static::CHECK_STATUS_VALID_WEBSERVICE : static::CHECK_STATUS_VALID;
                 } else {
-                    $status = static::CHECK_STATUS_INVALID;
+                    $status = static::CHECK_STATUS_INVALID_WEBSERVICE;
                 }
             } catch (SoapFault $e) {
-                // Nothing to do here just silent it
+                $e->faultcode;
             }
         }
 

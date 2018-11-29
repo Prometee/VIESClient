@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Prometee\VIESClient\Soap\Model;
 
-interface CheckVatApproxResponseInterface extends CheckVatApproxInterface
+interface CheckVatApproxResponseInterface extends CheckVatApproxInterface, ResponseInterface
 {
     /**
      * @return string|null

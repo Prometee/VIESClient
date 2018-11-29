@@ -40,7 +40,7 @@ class VatNumberUtil
         return null;
     }
 
-    public function clean(string $fullVatNumber): string
+    public static function clean(string $fullVatNumber): string
     {
         $fullVatNumber = strtoupper($fullVatNumber);
         $fullVatNumber = preg_replace('#[^A-Z0-9]#', '', $fullVatNumber);

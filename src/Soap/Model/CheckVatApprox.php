@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Prometee\VatInformationExchangeSystem\Soap\Model;
+namespace Prometee\VIESClient\Soap\Model;
 
-use Prometee\VatInformationExchangeSystem\Util\CompanyTypeCodeUtil;
+use Prometee\VIESClient\Util\CompanyTypeCodeUtil;
 
 class CheckVatApprox extends CheckVatRequest implements CheckVatApproxInterface
 {

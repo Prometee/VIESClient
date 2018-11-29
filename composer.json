@@ -18,8 +18,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Prometee\\VatInformationExchangeSystem\\": "src/",
-            "Tests\\Prometee\\VatInformationExchangeSystem\\": "tests/"
+            "Prometee\\VIESClient\\": "src/",
+            "Tests\\Prometee\\VIESClient\\": "tests/"
         }
     }
 }

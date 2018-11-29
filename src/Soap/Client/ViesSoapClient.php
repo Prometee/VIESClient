@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Prometee\VatInformationExchangeSystem\Soap\Client;
+namespace Prometee\VIESClient\Soap\Client;
 
-use Prometee\VatInformationExchangeSystem\Soap\Model\CheckVatApproxRequestInterface;
-use Prometee\VatInformationExchangeSystem\Soap\Model\CheckVatApproxResponseInterface;
-use Prometee\VatInformationExchangeSystem\Soap\Model\CheckVatRequestInterface;
-use Prometee\VatInformationExchangeSystem\Soap\Model\CheckVatResponseInterface;
+use Prometee\VIESClient\Soap\Model\CheckVatApproxRequestInterface;
+use Prometee\VIESClient\Soap\Model\CheckVatApproxResponseInterface;
+use Prometee\VIESClient\Soap\Model\CheckVatRequestInterface;
+use Prometee\VIESClient\Soap\Model\CheckVatResponseInterface;
 use SoapClient;
 
 class ViesSoapClient extends SoapClient implements ViesSoapClientInterface

@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Prometee\VatInformationExchangeSystem\Soap\Model;
-
-use Prometee\VatInformationExchangeSystem\Util\VatNumberUtil;
+namespace Prometee\VIESClient\Soap\Model;
 
 interface CheckVatRequestInterface
 {

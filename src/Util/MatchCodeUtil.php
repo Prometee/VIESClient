@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Prometee\VatInformationExchangeSystem\Util;
+namespace Prometee\VIESClient\Util;
 
 class MatchCodeUtil
 {

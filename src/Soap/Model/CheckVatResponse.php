@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Prometee\VatInformationExchangeSystem\Soap\Model;
+namespace Prometee\VIESClient\Soap\Model;
 
 class CheckVatResponse extends Response implements CheckVatResponseInterface, ResponseInterface
 {

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Prometee\VatInformationExchangeSystem\Test\Soap\Client;
+namespace Tests\Prometee\VIESClient\Test\Soap\Client;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use Prometee\VatInformationExchangeSystem\Soap\Client\ViesSoapClient;
-use Prometee\VatInformationExchangeSystem\Soap\Model\CheckVatApproxRequest;
-use Prometee\VatInformationExchangeSystem\Soap\Model\CheckVatApproxResponse;
-use Prometee\VatInformationExchangeSystem\Soap\Model\CheckVatRequest;
-use Prometee\VatInformationExchangeSystem\Soap\Model\CheckVatResponse;
+use Prometee\VIESClient\Soap\Client\ViesSoapClient;
+use Prometee\VIESClient\Soap\Model\CheckVatApproxRequest;
+use Prometee\VIESClient\Soap\Model\CheckVatApproxResponse;
+use Prometee\VIESClient\Soap\Model\CheckVatRequest;
+use Prometee\VIESClient\Soap\Model\CheckVatResponse;
 
 class ViesSoapClientTest extends TestCase
 {

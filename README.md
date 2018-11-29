@@ -19,8 +19,8 @@ $ composer require prometee/vies-client
 ```php
 $loader = require_once( __DIR__.'/vendor/autoload.php');
 
-use Prometee\VatInformationExchangeSystem\Soap\Client\ViesSoapClient;
-use Prometee\VatInformationExchangeSystem\Soap\Model\CheckVatRequest;
+use Prometee\VIESClient\Soap\Client\ViesSoapClient;
+use Prometee\VIESClient\Soap\Model\CheckVatRequest;
 
 $checkVatRequest = new CheckVatRequest();
 $checkVatRequest->setFullVatNumber('FR12345678987');

@@ -15,9 +15,20 @@ class ViesHelperTest extends TestCase
     {
         $helper = new ViesHelper(new ViesSoapClient());
 
-        $status = $helper->isValid('FR12345678987');
+        $status = $helper->isValid('0012345678987');
 
         $expectedStatus = ViesHelper::CHECK_STATUS_INVALID;
+
+        $this->assertEquals($expectedStatus, $status);
+    }
+    /** @test */
+    public function statusInvalidWebservice()
+    {
+        $helper = new ViesHelper(new ViesSoapClient());
+
+        $status = $helper->isValid('FR12345678987');
+
+        $expectedStatus = ViesHelper::CHECK_STATUS_INVALID_WEBSERVICE;
 
         $this->assertEquals($expectedStatus, $status);
     }

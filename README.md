@@ -23,7 +23,6 @@ use Prometee\VIESClient\Soap\Client\ViesSoapClient;
 use Prometee\VIESClient\Helper\ViesHelper;
 
 $viesSoapClient = new ViesSoapClient();
-$checkVatResponse = $viesSoapClient->checkVat($checkVatRequest);
 
 $viesHelper = new ViesHelper($viesSoapClient);
 $viesHelper->isValid('FR12345678987');

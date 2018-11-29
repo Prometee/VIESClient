@@ -20,14 +20,23 @@ $ composer require prometee/vies-client
 $loader = require_once( __DIR__.'/vendor/autoload.php');
 
 use Prometee\VIESClient\Soap\Client\ViesSoapClient;
-use Prometee\VIESClient\Soap\Model\CheckVatRequest;
-
-$checkVatRequest = new CheckVatRequest();
-$checkVatRequest->setFullVatNumber('FR12345678987');
+use Prometee\VIESClient\Helper\ViesHelper;
 
 $viesSoapClient = new ViesSoapClient();
 $checkVatResponse = $viesSoapClient->checkVat($checkVatRequest);
 
-print_r($checkVatResponse);
+$viesHelper = new ViesHelper($viesSoapClient);
+$viesHelper->isValid('FR12345678987');
+
+// Should print:
+// 0: Invalid (Format is not ok or the Soap WebService
+//    return isValid() === false
+// 1: Format is ok, but we could not check the Soap WebService
+//    because a network error occurred
+// 2: Format is not OK, but the Soap WebService say it exists
+//    (Could append if one day a new format is created,
+//    like adding a new European country)
+// 3: Format is ok and the VAT number exists
+print_r($viesHelper->isValid('FR12345678987'));
 
 ```

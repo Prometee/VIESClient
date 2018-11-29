@@ -27,7 +27,7 @@ class VatNumberUtil
      */
     public static function split(string $fullVatNumber): ?array
     {
-        $fullVatNumber = strtoupper($fullVatNumber);
+        $fullVatNumber = static::clean($fullVatNumber);
         if (preg_match(static::REGEX_PATTERN, $fullVatNumber, $matches) === 1) {
             if (count($matches) === 3) {
                 return [
@@ -38,5 +38,12 @@ class VatNumberUtil
         }
 
         return null;
+    }
+
+    public function clean(string $fullVatNumber): string
+    {
+        $fullVatNumber = strtoupper($fullVatNumber);
+        $fullVatNumber = preg_replace('#[^A-Z0-9]#', '', $fullVatNumber);
+        return $fullVatNumber;
     }
 }

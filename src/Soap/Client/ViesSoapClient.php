@@ -35,7 +35,7 @@ class ViesSoapClient extends SoapClient implements ViesSoapClientInterface
      */
     public function checkVat(CheckVatRequestInterface $checkVatRequest): CheckVatResponseInterface
     {
-        return $this->__call(__FUNCTION__, [$checkVatRequest]);
+        return parent::__call(__FUNCTION__, [$checkVatRequest]);
     }
 
     /**
@@ -43,6 +43,6 @@ class ViesSoapClient extends SoapClient implements ViesSoapClientInterface
      */
     public function checkVatApprox(CheckVatApproxRequestInterface $checkVatApproxRequest): CheckVatApproxResponseInterface
     {
-        return $this->__call(__FUNCTION__, [$checkVatApproxRequest]);
+        return parent::__call(__FUNCTION__, [$checkVatApproxRequest]);
     }
 }

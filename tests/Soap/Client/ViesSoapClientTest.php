@@ -11,6 +11,7 @@ use Prometee\VIESClient\Soap\Model\CheckVatApproxRequest;
 use Prometee\VIESClient\Soap\Model\CheckVatApproxResponse;
 use Prometee\VIESClient\Soap\Model\CheckVatRequest;
 use Prometee\VIESClient\Soap\Model\CheckVatResponse;
+use SoapFault;
 
 class ViesSoapClientTest extends TestCase
 {
@@ -24,16 +25,16 @@ class ViesSoapClientTest extends TestCase
         $viesSoapClient = new ViesSoapClient();
         $checkVatResponse = $viesSoapClient->checkVat($checkVatRequest);
 
-        $checkVatResponseMock = new CheckVatResponse();
-        $checkVatResponseMock->setCountryCode($vat[0]);
-        $checkVatResponseMock->setVatNumber($vat[1]);
+        $expectedCheckVatResponse = new CheckVatResponse();
+        $expectedCheckVatResponse->setCountryCode($vat[0]);
+        $expectedCheckVatResponse->setVatNumber($vat[1]);
         $date = new Datetime();
-        $checkVatResponseMock->setRequestDate($date->format('Y-m-d+01:00'));
-        $checkVatResponseMock->setValid(false);
-        $checkVatResponseMock->setName('---');
-        $checkVatResponseMock->setAddress('---');
+        $expectedCheckVatResponse->setRequestDate($date->format('Y-m-d+01:00'));
+        $expectedCheckVatResponse->setValid(false);
+        $expectedCheckVatResponse->setName('---');
+        $expectedCheckVatResponse->setAddress('---');
 
-        $this->assertEquals($checkVatResponseMock, $checkVatResponse);
+        $this->assertEquals($expectedCheckVatResponse, $checkVatResponse);
     }
 
     /** @test */
@@ -46,17 +47,53 @@ class ViesSoapClientTest extends TestCase
         $viesSoapClient = new ViesSoapClient();
         $checkVatApproxRequest = $viesSoapClient->checkVatApprox($checkVatApproxRequest);
 
-        $checkVatApproxResponseMock = new CheckVatApproxResponse();
-        $checkVatApproxResponseMock->setCountryCode($vat[0]);
-        $checkVatApproxResponseMock->setVatNumber($vat[1]);
+        $expectedCheckVatApproxResponse = new CheckVatApproxResponse();
+        $expectedCheckVatApproxResponse->setCountryCode($vat[0]);
+        $expectedCheckVatApproxResponse->setVatNumber($vat[1]);
         $date = new Datetime();
-        $checkVatApproxResponseMock->setRequestDate($date->format('Y-m-d+01:00'));
-        $checkVatApproxResponseMock->setValid(false);
-        $checkVatApproxResponseMock->setTraderName('---');
-        $checkVatApproxResponseMock->setTraderCompanyType('---');
-        $checkVatApproxResponseMock->setTraderAddress('---');
-        $checkVatApproxResponseMock->setRequestIdentifier('');
+        $expectedCheckVatApproxResponse->setRequestDate($date->format('Y-m-d+01:00'));
+        $expectedCheckVatApproxResponse->setValid(false);
+        $expectedCheckVatApproxResponse->setTraderName('---');
+        $expectedCheckVatApproxResponse->setTraderCompanyType('---');
+        $expectedCheckVatApproxResponse->setTraderAddress('---');
+        $expectedCheckVatApproxResponse->setRequestIdentifier('');
 
-        $this->assertEquals($checkVatApproxResponseMock, $checkVatApproxRequest);
+        $this->assertEquals($expectedCheckVatApproxResponse, $checkVatApproxRequest);
+    }
+
+    /** @test */
+    public function serverHostFault()
+    {
+        $checkVatRequest = new CheckVatRequest();
+        $checkVatRequest->setFullVatNumber('FR12345678987');
+
+        $viesSoapClient = new ViesSoapClient();
+        $viesSoapClient->__setLocation(preg_replace(
+            '#ec\.europa\.eu#',
+            'ec.europa.eueu',
+            ViesSoapClient::WSDL
+        ));
+
+        $this->expectException(SoapFault::class);
+        $this->expectExceptionMessage('Could not connect to host');
+        $viesSoapClient->checkVat($checkVatRequest);
+    }
+
+    /** @test */
+    public function serverNotFoundFault()
+    {
+        $checkVatRequest = new CheckVatRequest();
+        $checkVatRequest->setFullVatNumber('FR12345678987');
+
+        $viesSoapClient = new ViesSoapClient();
+        $viesSoapClient->__setLocation(preg_replace(
+            '#wsdl$#',
+            'wsdl-test-error',
+            ViesSoapClient::WSDL
+        ));
+
+        $this->expectException(SoapFault::class);
+        $this->expectExceptionMessage('Not Found');
+        $viesSoapClient->checkVat($checkVatRequest);
     }
 }

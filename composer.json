@@ -1,5 +1,5 @@
 {
-    "name": "prometee/european-vat-information-exchange-system",
+    "name": "prometee/vies-client",
     "description": "European VAT Information Exchange System SOAP client",
     "type": "library",
     "license": "MIT",

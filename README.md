@@ -11,7 +11,7 @@ See http://ec.europa.eu/taxation_customs/vies/ for more information.
 Install using Composer :
 
 ```
-$ composer require prometee/european-vat-information-exchange-system
+$ composer require prometee/vies-client
 ```
 
 ## Usage

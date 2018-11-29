@@ -45,4 +45,12 @@ class ViesSoapClient extends SoapClient implements ViesSoapClientInterface
     {
         return parent::__call(__FUNCTION__, [$checkVatApproxRequest]);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setLocation(string $new_location = null): ?string
+    {
+        return parent::__setLocation($new_location);
+    }
 }

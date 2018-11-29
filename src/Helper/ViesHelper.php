@@ -9,13 +9,8 @@ use Prometee\VIESClient\Soap\Model\CheckVatRequest;
 use Prometee\VIESClient\Util\VatNumberUtil;
 use SoapFault;
 
-class ViesHelper
+class ViesHelper implements ViesHelperInterface
 {
-    public const CHECK_STATUS_INVALID = 0;
-    public const CHECK_STATUS_FORMAT = 1;
-    public const CHECK_STATUS_WEBSERVICE = 2;
-    public const CHECK_STATUS_VALID = 3;
-
     /**
      * @var ViesSoapClientInterface
      */
@@ -27,7 +22,7 @@ class ViesHelper
     }
 
     /**
-     * @return ViesSoapClientInterface
+     * {@inheritdoc}
      */
     public function getSoapClient(): ViesSoapClientInterface
     {
@@ -35,8 +30,7 @@ class ViesHelper
     }
 
     /**
-     * @param string $fullVatNumber
-     * @return int One of ViesHelper::CHECK_STATUS_* value
+     * {@inheritdoc}
      */
     public function isValid(string $fullVatNumber): int
     {

@@ -68,7 +68,7 @@ class ViesSoapClientTest extends TestCase
         $checkVatRequest->setFullVatNumber('FR12345678987');
 
         $viesSoapClient = new ViesSoapClient();
-        $viesSoapClient->__setLocation(preg_replace(
+        $viesSoapClient->setLocation(preg_replace(
             '#ec\.europa\.eu#',
             'ec.europa.eueu',
             ViesSoapClient::WSDL
@@ -86,7 +86,7 @@ class ViesSoapClientTest extends TestCase
         $checkVatRequest->setFullVatNumber('FR12345678987');
 
         $viesSoapClient = new ViesSoapClient();
-        $viesSoapClient->__setLocation(preg_replace(
+        $viesSoapClient->setLocation(preg_replace(
             '#wsdl$#',
             'wsdl-test-error',
             ViesSoapClient::WSDL

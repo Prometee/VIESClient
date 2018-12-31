@@ -42,5 +42,5 @@ interface ViesSoapClientInterface
      * @param string|null $new_location
      * @return string|null
      */
-    public function setLocation (string $new_location = null): ?string;
+    public function setLocation(string $new_location = null): ?string;
 }

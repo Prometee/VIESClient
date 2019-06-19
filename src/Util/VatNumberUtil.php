@@ -6,11 +6,18 @@ namespace Prometee\VIESClient\Util;
 
 class VatNumberUtil
 {
+    public const EUROPEAN_UNION_COUNTRIES = [
+        'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI',
+        'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU',
+        'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE',
+        'GB',
+    ];
+
     /**
      * Compiled and simplified regexp from js library :
      * @see https://www.braemoor.co.uk/software/vat.shtml
      */
-    public const REGEX_PATTERN = '#^([ABCDEFGHILMNPRS][BEGHIKLORSTUVYZ])([ABDEGHIJKLMNPSTUVWXYZ0-9]+)#';
+    public const REGEX_PATTERN = '#^(%EUROPEAN_UNION_COUNTRIES%)([ABDEGHIJKLMNPSTUVWXYZ0-9]+)#';
 
     /**
      * @param string $fullVatNumber
@@ -28,7 +35,12 @@ class VatNumberUtil
     public static function split(string $fullVatNumber): ?array
     {
         $fullVatNumber = static::clean($fullVatNumber);
-        if (preg_match(static::REGEX_PATTERN, $fullVatNumber, $matches) === 1) {
+        $regexp = str_replace(
+            '%EUROPEAN_UNION_COUNTRIES%',
+            implode('|', static::EUROPEAN_UNION_COUNTRIES),
+            static::REGEX_PATTERN
+        );
+        if (preg_match($regexp, $fullVatNumber, $matches) === 1) {
             if (count($matches) === 3) {
                 return [
                     $matches[1],

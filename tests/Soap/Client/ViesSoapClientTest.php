@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Prometee\VIESClient\Test\Soap\Client;
 
 use DateTime;
+use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 use Prometee\VIESClient\Soap\Client\ViesSoapClient;
 use Prometee\VIESClient\Soap\Model\CheckVatApproxRequest;
@@ -28,8 +29,9 @@ class ViesSoapClientTest extends TestCase
         $expectedCheckVatResponse = new CheckVatResponse();
         $expectedCheckVatResponse->setCountryCode($vat[0]);
         $expectedCheckVatResponse->setVatNumber($vat[1]);
-        $date = new Datetime();
-        $expectedCheckVatResponse->setRequestDate($date->format('Y-m-d+01:00'));
+        // Timezone is guessed from my tests, it could be a spanish or italian one also...
+        $date = new Datetime('now', new DateTimeZone('Europe/Paris'));
+        $expectedCheckVatResponse->setRequestDate($date->format('Y-m-dP'));
         $expectedCheckVatResponse->setValid(false);
         $expectedCheckVatResponse->setName('---');
         $expectedCheckVatResponse->setAddress('---');
@@ -50,8 +52,9 @@ class ViesSoapClientTest extends TestCase
         $expectedCheckVatApproxResponse = new CheckVatApproxResponse();
         $expectedCheckVatApproxResponse->setCountryCode($vat[0]);
         $expectedCheckVatApproxResponse->setVatNumber($vat[1]);
-        $date = new Datetime();
-        $expectedCheckVatApproxResponse->setRequestDate($date->format('Y-m-d+01:00'));
+        // Timezone is guessed from my tests, it could be a spanish or italian one also...
+        $date = new Datetime('now', new DateTimeZone('Europe/Paris'));
+        $expectedCheckVatApproxResponse->setRequestDate($date->format('Y-m-dP'));
         $expectedCheckVatApproxResponse->setValid(false);
         $expectedCheckVatApproxResponse->setTraderName('---');
         $expectedCheckVatApproxResponse->setTraderCompanyType('---');

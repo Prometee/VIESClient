@@ -16,6 +16,9 @@ class ViesHelper implements ViesHelperInterface
      */
     protected $soapClient;
 
+    /**
+     * @param ViesSoapClientInterface $soapClient
+     */
     public function __construct(ViesSoapClientInterface $soapClient)
     {
         $this->soapClient = $soapClient;

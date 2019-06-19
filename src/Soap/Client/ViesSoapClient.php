@@ -9,6 +9,7 @@ use Prometee\VIESClient\Soap\Model\CheckVatApproxResponseInterface;
 use Prometee\VIESClient\Soap\Model\CheckVatRequestInterface;
 use Prometee\VIESClient\Soap\Model\CheckVatResponseInterface;
 use SoapClient;
+use SoapFault;
 
 class ViesSoapClient extends SoapClient implements ViesSoapClientInterface
 {
@@ -16,6 +17,8 @@ class ViesSoapClient extends SoapClient implements ViesSoapClientInterface
     /**
      * @param string|null $wsdl
      * @param array $options
+     *
+     * @throws SoapFault
      */
     public function __construct(string $wsdl = null, array $options = [])
     {

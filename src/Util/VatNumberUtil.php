@@ -17,7 +17,7 @@ class VatNumberUtil
      * Compiled and simplified regexp from a js library :
      * @see https://www.braemoor.co.uk/software/vat.shtml
      */
-    public const REGEX_PATTERN = '#^(%EUROPEAN_UNION_COUNTRIES%)([ABDEGHIJKLMNPSTUVWXYZ0-9]+)#';
+    public const REGEX_PATTERN = '#^(%EUROPEAN_UNION_COUNTRIES%)(.+)#';
 
     /**
      * @param string $fullVatNumber

@@ -7,7 +7,7 @@
 
 This library is designed to handle validation trough VIES Soap WebService.
 
-See http://ec.europa.eu/taxation_customs/vies/ for more information.
+See https://ec.europa.eu/taxation_customs/vies/ for more information.
 
 ## Installation
 

@@ -7,10 +7,34 @@ namespace Prometee\VIESClient\Util;
 class VatNumberUtil
 {
     public const EUROPEAN_UNION_COUNTRIES = [
-        'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI',
-        'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU',
-        'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE',
-        'GB',
+        'AT', // Austria
+        'BE', // Belgium
+        'BG', // Bulgaria
+        'CY', // Cyprus
+        'CZ', // Czech Republic
+        'DE', // Germany
+        'DK', // Denmark
+        'EE', // Estonia
+        'EL', // Greece (not an ISO 3166-1 A2 code)
+        'ES', // Spain
+        'FI', // Finland
+        'FR', // France
+        'GB', // United Kingdom
+        'HR', // Croatia
+        'HU', // Hungary
+        'IE', // Ireland
+        'IT', // Italy
+        'LT', // Lithuania
+        'LU', // Luxembourg
+        'LV', // Latvia
+        'MT', // Malta
+        'NL', // The Netherlands
+        'PL', // Poland
+        'PT', // Portugal
+        'RO', // Romania
+        'SE', // Sweden
+        'SI', // Slovenia
+        'SK', // Slovakia
     ];
 
     /**

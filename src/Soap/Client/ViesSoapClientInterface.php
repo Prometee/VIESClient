@@ -23,7 +23,7 @@ interface ViesSoapClientInterface
         'checkVatApproxResponse' => CheckVatApproxResponse::class,
     ];
 
-    public const WSDL = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl';
+    public const WSDL = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl';
 
     /**
      * @param CheckVatRequestInterface $checkVatRequest

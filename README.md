@@ -1,6 +1,5 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Build Status][ico-github-actions]][link-github-actions]
-[![Build Status][ico-travis]][link-travis]
 [![Quality Score][ico-code-quality]][link-code-quality]
 
 ## European VAT Information Exchange System SOAP client
@@ -45,11 +44,8 @@ print_r($viesHelper->isValid('FR12345678987'));
 
 [ico-version]: https://img.shields.io/packagist/v/Prometee/vies-client.svg?style=flat-square
 [ico-github-actions]: https://github.com/Prometee/VIESClient/workflows/Build/badge.svg
-[ico-travis]: https://img.shields.io/travis/Prometee/VIESClient/master.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/Prometee/VIESClient.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/prometee/vies-client
 [link-github-actions]: https://github.com/Prometee/VIESClient/actions?query=workflow%3A"Build"
-[link-travis]: https://travis-ci.org/Prometee/VIESClient
-[link-scrutinizer]: https://scrutinizer-ci.com/g/Prometee/VIESClient/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/Prometee/VIESClient

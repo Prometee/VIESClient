@@ -13,16 +13,12 @@ use SoapFault;
 
 class ViesSoapClient extends SoapClient implements ViesSoapClientInterface
 {
-
     /**
-     * @param string|null $wsdl
-     * @param array $options
-     *
      * @throws SoapFault
      */
     public function __construct(string $wsdl = null, array $options = [])
     {
-        if ($wsdl === null) {
+        if (null === $wsdl) {
             $wsdl = static::WSDL;
         }
 
@@ -33,26 +29,17 @@ class ViesSoapClient extends SoapClient implements ViesSoapClientInterface
         parent::__construct($wsdl, $options);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function checkVat(CheckVatRequestInterface $checkVatRequest): CheckVatResponseInterface
     {
-        return parent::__call(__FUNCTION__, [$checkVatRequest]);
+        return parent::__soapCall(__FUNCTION__, [$checkVatRequest]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function checkVatApprox(CheckVatApproxRequestInterface $checkVatApproxRequest): CheckVatApproxResponseInterface
     {
-        return parent::__call(__FUNCTION__, [$checkVatApproxRequest]);
+        return parent::__soapCall(__FUNCTION__, [$checkVatApproxRequest]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setLocation(string $new_location = null): ?string
+    public function setLocation(string $new_location = ''): ?string
     {
         return parent::__setLocation($new_location);
     }

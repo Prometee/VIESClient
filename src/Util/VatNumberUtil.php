@@ -38,22 +38,18 @@ class VatNumberUtil
     ];
 
     /**
-     * Compiled and simplified regexp from a js library :
+     * Compiled and simplified regexp from a js library.
+     *
      * @see https://www.braemoor.co.uk/software/vat.shtml
      */
     public const REGEX_PATTERN = '#^(%EUROPEAN_UNION_COUNTRIES%)(.+)#';
 
-    /**
-     * @param string $fullVatNumber
-     * @return bool
-     */
     public static function check(string $fullVatNumber): bool
     {
-        return static::split($fullVatNumber) !== null;
+        return null !== static::split($fullVatNumber);
     }
 
     /**
-     * @param string $fullVatNumber
      * @return string[]|null
      */
     public static function split(string $fullVatNumber): ?array
@@ -64,8 +60,8 @@ class VatNumberUtil
             implode('|', static::EUROPEAN_UNION_COUNTRIES),
             static::REGEX_PATTERN
         );
-        if (preg_match($regexp, $fullVatNumber, $matches) === 1) {
-            if (count($matches) === 3) {
+        if (1 === preg_match($regexp, $fullVatNumber, $matches)) {
+            if (3 === count($matches)) {
                 return [
                     $matches[1],
                     $matches[2],
@@ -78,8 +74,13 @@ class VatNumberUtil
 
     public static function clean(string $fullVatNumber): string
     {
-        $fullVatNumber = strtoupper($fullVatNumber);
-        $fullVatNumber = preg_replace('#[^A-Z0-9]#', '', $fullVatNumber);
-        return $fullVatNumber;
+        $cleanedFullVatNumber = strtoupper($fullVatNumber);
+        $cleanedFullVatNumber = preg_replace('#[^A-Z0-9]#', '', $cleanedFullVatNumber);
+
+        if (null === $cleanedFullVatNumber) {
+            return '';
+        }
+
+        return $cleanedFullVatNumber;
     }
 }

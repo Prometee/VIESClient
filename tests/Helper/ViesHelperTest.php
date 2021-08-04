@@ -21,6 +21,7 @@ class ViesHelperTest extends TestCase
 
         $this->assertEquals($expectedStatus, $status);
     }
+
     /** @test */
     public function statusInvalidWebservice()
     {
@@ -37,10 +38,12 @@ class ViesHelperTest extends TestCase
     public function statusFormat()
     {
         $soapClient = new ViesSoapClient();
-        $soapClient->setLocation(preg_replace(
-            '#ec\.europa\.eu#',
-            'ec.europa.eueu',
-            ViesSoapClient::WSDL)
+        $soapClient->setLocation(
+            preg_replace(
+                '#ec\.europa\.eu#',
+                'ec.europa.eueu',
+                ViesSoapClient::WSDL
+            )
         );
         $helper = new ViesHelper($soapClient);
 

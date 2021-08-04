@@ -11,30 +11,19 @@ use SoapFault;
 
 class ViesHelper implements ViesHelperInterface
 {
-    /**
-     * @var ViesSoapClientInterface
-     */
+    /** @var ViesSoapClientInterface */
     protected $soapClient;
 
-    /**
-     * @param ViesSoapClientInterface $soapClient
-     */
     public function __construct(ViesSoapClientInterface $soapClient)
     {
         $this->soapClient = $soapClient;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSoapClient(): ViesSoapClientInterface
     {
         return $this->soapClient;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isValid(string $fullVatNumber): int
     {
         $status = static::CHECK_STATUS_INVALID;
@@ -55,7 +44,7 @@ class ViesHelper implements ViesHelperInterface
                     $status = static::CHECK_STATUS_INVALID_WEBSERVICE;
                 }
             } catch (SoapFault $e) {
-                $e->faultcode;
+                // do nothing : fail-safe
             }
         }
 

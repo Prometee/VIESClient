@@ -14,7 +14,7 @@
         "ext-soap": "*"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan": "^0.12 || ^1.0",
         "symplify/easy-coding-standard": "^8|^9",
         "phpunit/phpunit": "^8|^9"
     },

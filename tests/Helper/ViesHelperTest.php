@@ -38,7 +38,7 @@ class ViesHelperTest extends TestCase
     public function statusFormat()
     {
         $soapClient = new ViesSoapClient();
-        $soapClient->setLocation(
+        $soapClient->__setLocation(
             preg_replace(
                 '#ec\.europa\.eu#',
                 'ec.europa.eueu',

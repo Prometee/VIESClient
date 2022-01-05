@@ -10,6 +10,7 @@ use Prometee\VIESClient\Soap\Model\CheckVatRequestInterface;
 use Prometee\VIESClient\Soap\Model\CheckVatResponseInterface;
 use SoapClient;
 use SoapFault;
+use UnexpectedValueException;
 
 class ViesSoapClient extends SoapClient implements ViesSoapClientInterface
 {
@@ -31,16 +32,23 @@ class ViesSoapClient extends SoapClient implements ViesSoapClientInterface
 
     public function checkVat(CheckVatRequestInterface $checkVatRequest): CheckVatResponseInterface
     {
-        return parent::__soapCall(__FUNCTION__, [$checkVatRequest]);
+        $soapCall = parent::__soapCall(__FUNCTION__, [$checkVatRequest]);
+
+        if (false === $soapCall instanceof CheckVatResponseInterface) {
+            throw new UnexpectedValueException(sprintf('Expect %s get %s !', CheckVatResponseInterface::class, gettype($soapCall)));
+        }
+
+        return $soapCall;
     }
 
     public function checkVatApprox(CheckVatApproxRequestInterface $checkVatApproxRequest): CheckVatApproxResponseInterface
     {
-        return parent::__soapCall(__FUNCTION__, [$checkVatApproxRequest]);
-    }
+        $soapCall = parent::__soapCall(__FUNCTION__, [$checkVatApproxRequest]);
 
-    public function setLocation(string $new_location = ''): ?string
-    {
-        return parent::__setLocation($new_location);
+        if (false === $soapCall instanceof CheckVatApproxResponseInterface) {
+            throw new UnexpectedValueException(sprintf('Expect %s get %s !', CheckVatApproxResponseInterface::class, gettype($soapCall)));
+        }
+
+        return $soapCall;
     }
 }

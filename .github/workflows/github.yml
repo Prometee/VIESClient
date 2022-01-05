@@ -56,22 +56,27 @@ jobs:
       -
         name: Install PHP dependencies
         run: composer install --no-interaction
+        id: end-of-setup
 
       -
         name: Check Composer
         run: composer validate --strict
+        if: always() && steps.end-of-setup.outcome == 'success'
 
       -
         name: ECS analysis
         run: vendor/bin/ecs check .
+        if: always() && steps.end-of-setup.outcome == 'success'
 
       -
         name: PHPStan analysis
         run: vendor/bin/phpstan analyse -c phpstan.neon -l max src/
+        if: always() && steps.end-of-setup.outcome == 'success'
 
       -
         name: Run PHPUnit
         run: vendor/bin/phpunit # --coverage-clover coverage.xml
+        if: always() && steps.end-of-setup.outcome == 'success'
 
 #      -
 #        uses: codecov/codecov-action@v1

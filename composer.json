@@ -14,9 +14,9 @@
         "ext-soap": "*"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.12",
-        "symplify/easy-coding-standard": "^8|^9",
-        "phpunit/phpunit": "^8|^9"
+        "phpstan/phpstan": "^1",
+        "symplify/easy-coding-standard": "^9",
+        "phpunit/phpunit": "^9"
     },
     "autoload": {
         "psr-4": { "Prometee\\VIESClient\\": "src/" }

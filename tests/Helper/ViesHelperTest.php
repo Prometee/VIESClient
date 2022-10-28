@@ -6,12 +6,17 @@ namespace Tests\Prometee\VIESClient\Helper;
 
 use PHPUnit\Framework\TestCase;
 use Prometee\VIESClient\Helper\ViesHelper;
+use Prometee\VIESClient\Soap\Client\DeferredViesSoapClient;
 use Prometee\VIESClient\Soap\Client\ViesSoapClient;
+use Prometee\VIESClient\Soap\Client\ViesSoapClientInterface;
+use Prometee\VIESClient\Soap\Factory\ViesSoapClientFactory;
 
 class ViesHelperTest extends TestCase
 {
-    /** @test */
-    public function statusInvalid()
+    /**
+     * @dataProvider clientFactory
+     */
+    public function testStatusInvalid(): void
     {
         $helper = new ViesHelper(new ViesSoapClient());
 
@@ -22,10 +27,12 @@ class ViesHelperTest extends TestCase
         $this->assertEquals($expectedStatus, $status);
     }
 
-    /** @test */
-    public function statusInvalidWebservice()
+    /**
+     * @dataProvider clientFactory
+     */
+    public function testStatusInvalidWebservice(ViesSoapClientInterface $viesSoapClient): void
     {
-        $helper = new ViesHelper(new ViesSoapClient());
+        $helper = new ViesHelper($viesSoapClient);
 
         $status = $helper->isValid('FR12345678987');
 
@@ -34,10 +41,12 @@ class ViesHelperTest extends TestCase
         $this->assertEquals($expectedStatus, $status);
     }
 
-    /** @test */
-    public function statusFormat()
+    /**
+     * @dataProvider clientFactory
+     */
+    public function testStatusFormat(ViesSoapClientInterface $viesSoapClient): void
     {
-        $soapClient = new ViesSoapClient();
+        $soapClient = $viesSoapClient;
         $soapClient->__setLocation(
             preg_replace(
                 '#ec\.europa\.eu#',
@@ -54,9 +63,12 @@ class ViesHelperTest extends TestCase
         $this->assertEquals($expectedStatus, $status);
     }
 
-    public function statusValid()
+    /**
+     * @dataProvider clientFactory
+     */
+    public function testStatusValid(ViesSoapClientInterface $viesSoapClient): void
     {
-        $helper = new ViesHelper(new ViesSoapClient());
+        $helper = new ViesHelper($viesSoapClient);
 
         //VAT number of L'Oreal
         $status = $helper->isValid('FR10632012100');
@@ -64,5 +76,15 @@ class ViesHelperTest extends TestCase
         $expectedStatus = ViesHelper::CHECK_STATUS_VALID;
 
         $this->assertEquals($expectedStatus, $status);
+    }
+
+    public function clientFactory(): array
+    {
+        $viesSoapClientFactory = new ViesSoapClientFactory(ViesSoapClient::class);
+
+        return [
+            [$viesSoapClientFactory->createNew()],
+            [new DeferredViesSoapClient($viesSoapClientFactory)],
+        ];
     }
 }

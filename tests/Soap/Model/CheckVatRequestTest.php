@@ -9,8 +9,7 @@ use Prometee\VIESClient\Soap\Model\CheckVatRequest;
 
 class CheckVatRequestTest extends TestCase
 {
-    /** @test */
-    public function hasWrongChar()
+    public function testHasWrongChar(): void
     {
         $checkVatRequest = new CheckVatRequest();
         $checkVatRequest->setFullVatNumber('   #FR\! @ 123456789\! @ 87   ');

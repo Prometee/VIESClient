@@ -7,7 +7,10 @@ namespace Tests\Prometee\VIESClient\Test\Soap\Client;
 use DateTime;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
+use Prometee\VIESClient\Soap\Client\DeferredViesSoapClient;
 use Prometee\VIESClient\Soap\Client\ViesSoapClient;
+use Prometee\VIESClient\Soap\Client\ViesSoapClientInterface;
+use Prometee\VIESClient\Soap\Factory\ViesSoapClientFactory;
 use Prometee\VIESClient\Soap\Model\CheckVatApproxRequest;
 use Prometee\VIESClient\Soap\Model\CheckVatApproxResponse;
 use Prometee\VIESClient\Soap\Model\CheckVatRequest;
@@ -16,14 +19,15 @@ use SoapFault;
 
 class ViesSoapClientTest extends TestCase
 {
-    /** @test */
-    public function checkVatResponse()
+    /**
+     * @dataProvider clientFactory
+     */
+    public function testCheckVatResponse(ViesSoapClientInterface $viesSoapClient): void
     {
         $vat = ['FR', '12345678987'];
         $checkVatRequest = new CheckVatRequest();
         $checkVatRequest->setFullVatNumber(implode('', $vat));
 
-        $viesSoapClient = new ViesSoapClient();
         $checkVatResponse = $viesSoapClient->checkVat($checkVatRequest);
 
         $expectedCheckVatResponse = new CheckVatResponse();
@@ -39,14 +43,15 @@ class ViesSoapClientTest extends TestCase
         $this->assertEquals($expectedCheckVatResponse, $checkVatResponse);
     }
 
-    /** @test */
-    public function checkVatApprox()
+    /**
+     * @dataProvider clientFactory
+     */
+    public function testCheckVatApprox(ViesSoapClientInterface $viesSoapClient): void
     {
         $vat = ['FR', '12345678987'];
         $checkVatApproxRequest = new CheckVatApproxRequest();
         $checkVatApproxRequest->setFullVatNumber(implode('', $vat));
 
-        $viesSoapClient = new ViesSoapClient();
         $checkVatApproxRequest = $viesSoapClient->checkVatApprox($checkVatApproxRequest);
 
         $expectedCheckVatApproxResponse = new CheckVatApproxResponse();
@@ -64,13 +69,14 @@ class ViesSoapClientTest extends TestCase
         $this->assertEquals($expectedCheckVatApproxResponse, $checkVatApproxRequest);
     }
 
-    /** @test */
-    public function serverHostFault()
+    /**
+     * @dataProvider clientFactory
+     */
+    public function testServerHostFault(ViesSoapClientInterface $viesSoapClient): void
     {
         $checkVatRequest = new CheckVatRequest();
         $checkVatRequest->setFullVatNumber('FR12345678987');
 
-        $viesSoapClient = new ViesSoapClient();
         $viesSoapClient->__setLocation(preg_replace(
             '#ec\.europa\.eu#',
             'ec.europa.eueu',
@@ -82,13 +88,14 @@ class ViesSoapClientTest extends TestCase
         $viesSoapClient->checkVat($checkVatRequest);
     }
 
-    /** @test */
-    public function serverNotFoundFault()
+    /**
+     * @dataProvider clientFactory
+     */
+    public function testServerNotFoundFault(ViesSoapClientInterface $viesSoapClient): void
     {
         $checkVatRequest = new CheckVatRequest();
         $checkVatRequest->setFullVatNumber('FR12345678987');
 
-        $viesSoapClient = new ViesSoapClient();
         $viesSoapClient->__setLocation(preg_replace(
             '#wsdl$#',
             'wsdl-test-error',
@@ -98,5 +105,15 @@ class ViesSoapClientTest extends TestCase
         $this->expectException(SoapFault::class);
         $this->expectExceptionMessage('Not Found');
         $viesSoapClient->checkVat($checkVatRequest);
+    }
+
+    public function clientFactory(): array
+    {
+        $viesSoapClientFactory = new ViesSoapClientFactory(ViesSoapClient::class);
+
+        return [
+            [$viesSoapClientFactory->createNew()],
+            [new DeferredViesSoapClient($viesSoapClientFactory)],
+        ];
     }
 }

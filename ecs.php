@@ -21,13 +21,13 @@ use PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTypesOrderFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__.'/vendor/symplify/easy-coding-standard/config/set/psr12.php');
-    $containerConfigurator->import(__DIR__.'/vendor/symplify/easy-coding-standard/config/set/symfony.php');
+return static function (ECSConfig $ecsConfig): void {
+    $ecsConfig->import(__DIR__.'/vendor/symplify/easy-coding-standard/config/set/psr12.php');
+    $ecsConfig->import(__DIR__.'/vendor/symplify/easy-coding-standard/config/set/symfony.php');
 
-    $services = $containerConfigurator->services();
+    $services = $ecsConfig->services();
 
     $services->set(BlankLineAfterOpeningTagFixer::class);
 

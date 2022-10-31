@@ -21,10 +21,15 @@ $ composer require prometee/vies-client
 ```php
 $loader = require_once( __DIR__.'/vendor/autoload.php');
 
+use Prometee\VIESClient\Soap\Client\DeferredViesSoapClient;
 use Prometee\VIESClient\Soap\Client\ViesSoapClient;
+use Prometee\VIESClient\Soap\Factory\ViesSoapClientFactory;
 use Prometee\VIESClient\Helper\ViesHelper;
 
-$viesSoapClient = new ViesSoapClient();
+// Use the Deferred client to avoid getting error
+// when the WSDL file is not accessible
+$viesSoapClientFactory = ViesSoapClientFactory(ViesSoapClient::class);
+$viesSoapClient = new DeferredViesSoapClient($viesSoapClientFactory);
 
 $viesHelper = new ViesHelper($viesSoapClient);
 $viesHelper->isValid('FR12345678987');

@@ -6,6 +6,7 @@ namespace Tests\Prometee\VIESClient\Helper;
 
 use PHPUnit\Framework\TestCase;
 use Prometee\VIESClient\Helper\ViesHelper;
+use Prometee\VIESClient\Helper\ViesHelperInterface;
 use Prometee\VIESClient\Soap\Client\DeferredViesSoapClient;
 use Prometee\VIESClient\Soap\Client\ViesSoapClient;
 use Prometee\VIESClient\Soap\Client\ViesSoapClientInterface;
@@ -22,7 +23,7 @@ class ViesHelperTest extends TestCase
 
         $status = $helper->isValid('0012345678987');
 
-        $expectedStatus = ViesHelper::CHECK_STATUS_INVALID;
+        $expectedStatus = ViesHelperInterface::CHECK_STATUS_INVALID;
 
         $this->assertEquals($expectedStatus, $status);
     }
@@ -36,29 +37,30 @@ class ViesHelperTest extends TestCase
 
         $status = $helper->isValid('FR12345678987');
 
-        $expectedStatus = ViesHelper::CHECK_STATUS_INVALID_WEBSERVICE;
+        $expectedStatus = ViesHelperInterface::CHECK_STATUS_INVALID_WEBSERVICE;
 
         $this->assertEquals($expectedStatus, $status);
     }
 
-    /**
-     * @dataProvider clientFactory
-     */
-    public function testStatusFormat(ViesSoapClientInterface $viesSoapClient): void
+    public function testStatusFormat(): void
     {
-        $soapClient = $viesSoapClient;
-        $soapClient->__setLocation(
-            preg_replace(
-                '#ec\.europa\.eu#',
-                'ec.europa.eueu',
-                ViesSoapClient::WSDL
-            )
+        $wsdl = preg_replace(
+            '#ec\.europa\.eu#',
+            'ec.europa.eueu',
+            ViesSoapClientInterface::WSDL
         );
+
+        $viesSoapClientFactory = new ViesSoapClientFactory(
+            ViesSoapClient::class,
+            $wsdl
+        );
+        $soapClient = new DeferredViesSoapClient($viesSoapClientFactory);
+
         $helper = new ViesHelper($soapClient);
 
         $status = $helper->isValid('FR12345678987');
 
-        $expectedStatus = ViesHelper::CHECK_STATUS_VALID_FORMAT;
+        $expectedStatus = ViesHelperInterface::CHECK_STATUS_VALID_FORMAT;
 
         $this->assertEquals($expectedStatus, $status);
     }
@@ -73,7 +75,7 @@ class ViesHelperTest extends TestCase
         //VAT number of L'Oreal
         $status = $helper->isValid('FR10632012100');
 
-        $expectedStatus = ViesHelper::CHECK_STATUS_VALID;
+        $expectedStatus = ViesHelperInterface::CHECK_STATUS_VALID;
 
         $this->assertEquals($expectedStatus, $status);
     }

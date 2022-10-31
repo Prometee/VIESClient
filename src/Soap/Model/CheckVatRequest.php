@@ -25,7 +25,7 @@ class CheckVatRequest implements CheckVatRequestInterface
 
     public function getFullVatNumber(): string
     {
-        return $this->getCountryCode().$this->getVatNumber();
+        return $this->getCountryCode() . $this->getVatNumber();
     }
 
     public function getCountryCode(): string

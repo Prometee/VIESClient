@@ -32,7 +32,7 @@ class ViesSoapClientTest extends TestCase
 
         $expectedCheckVatResponse = new CheckVatResponse();
         $expectedCheckVatResponse->setCountryCode($vat[0]);
-        $expectedCheckVatResponse->setVatNumber($vat[1]);
+        $expectedCheckVatResponse->setVatNumber('');
         // Timezone is guessed from my tests, it could be a spanish or italian one also...
         $date = new Datetime('now', new DateTimeZone('Europe/Paris'));
         $expectedCheckVatResponse->setRequestDate($date->format('Y-m-dP'));
@@ -56,7 +56,7 @@ class ViesSoapClientTest extends TestCase
 
         $expectedCheckVatApproxResponse = new CheckVatApproxResponse();
         $expectedCheckVatApproxResponse->setCountryCode($vat[0]);
-        $expectedCheckVatApproxResponse->setVatNumber($vat[1]);
+        $expectedCheckVatApproxResponse->setVatNumber('');
         // Timezone is guessed from my tests, it could be a spanish or italian one also...
         $date = new Datetime('now', new DateTimeZone('Europe/Paris'));
         $expectedCheckVatApproxResponse->setRequestDate($date->format('Y-m-dP'));
@@ -69,22 +69,25 @@ class ViesSoapClientTest extends TestCase
         $this->assertEquals($expectedCheckVatApproxResponse, $checkVatApproxRequest);
     }
 
-    /**
-     * @dataProvider clientFactory
-     */
-    public function testServerHostFault(ViesSoapClientInterface $viesSoapClient): void
+    public function testServerHostFault(): void
     {
+        $wsdl = preg_replace(
+            '#ec\.europa\.eu#',
+            'ec.europa.eueu',
+            ViesSoapClientInterface::WSDL
+        );
+
+        $viesSoapClientFactory = new ViesSoapClientFactory(
+            ViesSoapClient::class,
+            $wsdl
+        );
+        $viesSoapClient = new DeferredViesSoapClient($viesSoapClientFactory);
+
         $checkVatRequest = new CheckVatRequest();
         $checkVatRequest->setFullVatNumber('FR12345678987');
 
-        $viesSoapClient->__setLocation(preg_replace(
-            '#ec\.europa\.eu#',
-            'ec.europa.eueu',
-            ViesSoapClient::WSDL
-        ));
-
         $this->expectException(SoapFault::class);
-        $this->expectExceptionMessage('Could not connect to host');
+        $this->expectExceptionMessage('Couldn\'t load from');
         $viesSoapClient->checkVat($checkVatRequest);
     }
 
@@ -93,17 +96,23 @@ class ViesSoapClientTest extends TestCase
      */
     public function testServerNotFoundFault(ViesSoapClientInterface $viesSoapClient): void
     {
+        $wsdl = preg_replace(
+            '#wsdl$#',
+            'wsdl-test-error',
+            ViesSoapClientInterface::WSDL
+        );
+
+        $viesSoapClientFactory = new ViesSoapClientFactory(
+            ViesSoapClient::class,
+            $wsdl
+        );
+        $viesSoapClient = new DeferredViesSoapClient($viesSoapClientFactory);
+
         $checkVatRequest = new CheckVatRequest();
         $checkVatRequest->setFullVatNumber('FR12345678987');
 
-        $viesSoapClient->__setLocation(preg_replace(
-            '#wsdl$#',
-            'wsdl-test-error',
-            ViesSoapClient::WSDL
-        ));
-
         $this->expectException(SoapFault::class);
-        $this->expectExceptionMessage('Not Found');
+        $this->expectExceptionMessage('Couldn\'t load from');
         $viesSoapClient->checkVat($checkVatRequest);
     }
 

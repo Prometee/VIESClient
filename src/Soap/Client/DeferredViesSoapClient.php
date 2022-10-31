@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Prometee\VIESClient\Soap\Client;
 
+use Prometee\VIESClient\Soap\Factory\ViesSoapClientFactoryInterface;
 use Prometee\VIESClient\Soap\Model\CheckVatApproxRequestInterface;
 use Prometee\VIESClient\Soap\Model\CheckVatApproxResponseInterface;
 use Prometee\VIESClient\Soap\Model\CheckVatRequestInterface;
 use Prometee\VIESClient\Soap\Model\CheckVatResponseInterface;
-use Prometee\VIESClient\Soap\Factory\ViesSoapClientFactoryInterface;
 
 class DeferredViesSoapClient implements ViesSoapClientInterface
 {

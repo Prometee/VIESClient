@@ -32,7 +32,7 @@ class ViesSoapClientTest extends TestCase
 
         $expectedCheckVatResponse = new CheckVatResponse();
         $expectedCheckVatResponse->setCountryCode($vat[0]);
-        $expectedCheckVatResponse->setVatNumber('');
+        $expectedCheckVatResponse->setVatNumber('12345678987');
         // Timezone is guessed from my tests, it could be a spanish or italian one also...
         $date = new Datetime('now', new DateTimeZone('Europe/Paris'));
         $expectedCheckVatResponse->setRequestDate($date->format('Y-m-dP'));
@@ -56,7 +56,7 @@ class ViesSoapClientTest extends TestCase
 
         $expectedCheckVatApproxResponse = new CheckVatApproxResponse();
         $expectedCheckVatApproxResponse->setCountryCode($vat[0]);
-        $expectedCheckVatApproxResponse->setVatNumber('');
+        $expectedCheckVatApproxResponse->setVatNumber('12345678987');
         // Timezone is guessed from my tests, it could be a spanish or italian one also...
         $date = new Datetime('now', new DateTimeZone('Europe/Paris'));
         $expectedCheckVatApproxResponse->setRequestDate($date->format('Y-m-dP'));

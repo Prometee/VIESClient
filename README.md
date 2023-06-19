@@ -35,14 +35,10 @@ $viesHelper = new ViesHelper($viesSoapClient);
 $viesHelper->isValid('FR12345678987');
 
 // Should print:
-// 0: Invalid (Format is not ok or the Soap WebService
-//    return isValid() === false
-// 1: Format is ok, but we could not check the Soap WebService
-//    because a network error occurred
-// 2: Format is not OK, but the Soap WebService say it exists
-//    (Could append if one day a new format is created,
-//    like adding a new European country)
-// 3: Format is ok and the VAT number exists
+// 0: CHECK_STATUS_INVALID => Format is not valid and the webservice is not reachable)
+// 1: CHECK_STATUS_INVALID_WEBSERVICE => Format is not valid according to the webservice
+// 2: CHECK_STATUS_VALID_FORMAT => Format is valid but the webservice is not reachable
+// 3: CHECK_STATUS_VALID_WEBSERVICE => Format is valid and the VAT number exists
 print_r($viesHelper->isValid('FR12345678987'));
 
 ```

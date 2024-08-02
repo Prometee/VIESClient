@@ -68,14 +68,44 @@ class ViesHelperTest extends TestCase
     /**
      * @dataProvider clientFactory
      */
-    public function testStatusValid(ViesSoapClientInterface $viesSoapClient): void
+    public function testStatusValidFR(ViesSoapClientInterface $viesSoapClient): void
     {
         $helper = new ViesHelper($viesSoapClient);
 
-        //VAT number of L'Oreal
+        // L'Oreal VAT number
         $status = $helper->isValid('FR10632012100');
 
         $expectedStatus = ViesHelperInterface::CHECK_STATUS_VALID;
+
+        $this->assertEquals($expectedStatus, $status);
+    }
+
+    /**
+     * @dataProvider clientFactory
+     */
+    public function testStatusValidFormatFR(ViesSoapClientInterface $viesSoapClient): void
+    {
+        $helper = new ViesHelper($viesSoapClient);
+
+        // Random VAT number
+        $status = $helper->isValid('FR12345678987');
+
+        $expectedStatus = ViesHelperInterface::CHECK_STATUS_INVALID_WEBSERVICE;
+
+        $this->assertEquals($expectedStatus, $status);
+    }
+
+    /**
+     * @dataProvider clientFactory
+     */
+    public function testStatusValidGB(ViesSoapClientInterface $viesSoapClient): void
+    {
+        $helper = new ViesHelper($viesSoapClient);
+
+        // Random UK VAT number
+        $status = $helper->isValid('GB1234567');
+
+        $expectedStatus = ViesHelperInterface::CHECK_STATUS_INVALID;
 
         $this->assertEquals($expectedStatus, $status);
     }

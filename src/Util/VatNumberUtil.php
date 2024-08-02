@@ -19,7 +19,7 @@ class VatNumberUtil
         'ES', // Spain
         'FI', // Finland
         'FR', // France
-        'GB', // United Kingdom
+        //'GB', // United Kingdom
         'HR', // Croatia
         'HU', // Hungary
         'IE', // Ireland

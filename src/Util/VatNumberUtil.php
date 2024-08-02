@@ -35,13 +35,9 @@ class VatNumberUtil
         'SE', // Sweden
         'SI', // Slovenia
         'SK', // Slovakia
+        'XI', // Northern Ireland
     ];
 
-    /**
-     * Compiled and simplified regexp from a js library.
-     *
-     * @see https://www.braemoor.co.uk/software/vat.shtml
-     */
     public const REGEX_PATTERN = '#^(%EUROPEAN_UNION_COUNTRIES%)(.+)#';
 
     public static function check(string $fullVatNumber): bool
@@ -60,16 +56,17 @@ class VatNumberUtil
             implode('|', static::EUROPEAN_UNION_COUNTRIES),
             static::REGEX_PATTERN
         );
-        if (1 === preg_match($regexp, $fullVatNumber, $matches)) {
-            if (3 === count($matches)) {
-                return [
-                    $matches[1],
-                    $matches[2],
-                ];
-            }
+        if (1 !== preg_match($regexp, $fullVatNumber, $matches)) {
+            return null;
+        }
+        if (3 !== count($matches)) {
+            return null;
         }
 
-        return null;
+        return [
+            $matches[1],
+            $matches[2],
+        ];
     }
 
     public static function clean(string $fullVatNumber): string

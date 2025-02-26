@@ -24,7 +24,7 @@ final class ViesSoapClientFactory implements ViesSoapClientFactoryInterface
     /**
      * @psalm-param class-string<ViesSoapClientInterface> $className
      */
-    public function __construct(string $className, string $wsdl = null, array $options = [])
+    public function __construct(string $className, ?string $wsdl = null, array $options = [])
     {
         $this->className = $className;
         $this->wsdl = $wsdl;
